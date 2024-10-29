@@ -1,13 +1,39 @@
+/*Input box style*/
 
 .task-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color:rgb(183, 183, 168) ;
     border-radius: 8px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
   }
+ .form {
+ padding: 1.5;
+ border-radius: 8px;
+ box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+ margin-bottom: 2rem;
+ max-width: 500px;
+ margin: 0 auto;
+ }
+ .form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+ }
+
+.form input[type= "text"],
+.form input[type= "date"],
+.form textarea,
+.form select{
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid#ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
 
   .heading {
     text-align: center;
@@ -16,30 +42,17 @@
     color: #333;
   }
 
-  form input[type="text"],
-  form input[type="date"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
   input[type="radio"] {
     margin-right: 5px;
-  }
-  
-  form label {
-    display: block;
-    margin: 10px 0;
-    font-weight: bold;
   }
   
   button {
     margin: 10px 5px;
   }
   
+  .form button:hover{
+    background-color: skyblue;
+  }
 
   .btn {
     padding: 10px 15px;
@@ -49,33 +62,61 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  /*Task list style*/
   
-  .btn:hover {
-    background-color: #0056b3;
+  .task-list{
+    max-width: 600px;
+    margin: 0 auto;
+    color: #333;
+  }
+  .task-list h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
   }
 
-  ul {
+  .task-list p[ngStyle*="colort: red"]{
+    color: red;
+  }
+  .task-list p[ngStyle*="colort: orange"]{
+    color: orange;
+  }
+  
+  .task-list p[ngStyle*="colort: green"]{
+    color: green;
+  }
+  
+  .task-list ul {
     list-style-type: none;
     padding: 0;
   }
   
-  li {
+  .task-list li {
     background-color: #fff;
     margin: 10px 0;
-    padding: 15px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
+    border: 1px solid#ddd;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
-  li button {
+  .task-list input[type='checkbox']{
+    margin-right: 0.5rem;
+  }
+
+  .task-list button {
     padding: 5px 10px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
     position: relative;
+    font-size: 0.87rem;
+    color: white;
+    background-color: #e53935;
   }
   
   li button:first-child {
@@ -95,17 +136,6 @@
   li button:last-child:hover {
     background-color: #c82333;
   }
-
-  .task-list p[ngStyle*="colort: red"]{
-  color: red;
-}
-.task-list p[ngStyle*="colort: orange"]{
-  color: orange;
-}
-
-.task-list p[ngStyle*="colort: green"]{
-  color: green;
-}
 
 .overdue {
   border-color: red;
