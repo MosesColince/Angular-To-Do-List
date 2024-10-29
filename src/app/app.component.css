@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding : 2rem;
+    box-sizing: border-box;
+    background-color: antiquewhite;
+   
+  }
+  
+  .overlay {
+    background-color:rgb(255, 255,0.8) ;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
