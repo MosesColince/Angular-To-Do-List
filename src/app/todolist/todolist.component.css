@@ -1,0 +1,116 @@
+/* Container styles */
+.task-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+  }
+  
+  /* Heading styles */
+  .heading {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  /* Form input styles */
+  form input[type="text"],
+  form input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  form label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  button {
+    margin: 10px 5px;
+  }
+  
+  /* Submit button */
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Task list styles */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  li button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  li button:first-child {
+    background-color: #ffc107;
+    color: white;
+  }
+  
+  li button:last-child {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  li button:first-child:hover {
+    background-color: #e0a800;
+  }
+  
+  li button:last-child:hover {
+    background-color: #c82333;
+  }
+
+  .task-list p[ngStyle*="colort: red"]{
+  color: red;
+}
+.task-list p[ngStyle*="colort: orange"]{
+  color: orange;
+}
+
+.task-list p[ngStyle*="colort: green"]{
+  color: green;
+}
+
+.overdue {
+  border-color: red;
+  background-color: #ffe6e6;
+}

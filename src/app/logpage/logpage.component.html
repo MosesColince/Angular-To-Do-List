@@ -1,0 +1,58 @@
+<div class="welcome-header">
+  <h1>Manage Your Tasks</h1>
+</div>
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+    <div class="login-input">
+      <label for="email">Email</label>  
+      <input
+        id="email"
+        formControlName="email"
+        placeholder="Enter your Email Address"
+        type="email"
+      />
+      <div
+        *ngIf="
+          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+        "
+      >
+        <small *ngIf="loginForm.get('email')?.errors?.['required']"
+          >Email Is Required.</small
+        >
+        <small *ngIf="loginForm.get('email')?.errors?.['email']"
+          >Please Enter Valid Email.</small
+        >
+      </div>
+      <label for="password">Password</label>
+      <input
+        id="password"
+        formControlName="password"
+        placeholder="Enter Your Password"
+        type="password"
+      />
+      <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+        "
+      >
+        <small *ngIf="loginForm.get('password')?.errors?.['required']"
+          >Password Is Required.</small
+        >
+        <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
+          >Password must be at least 6 characters.</small
+        >
+      </div>
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid" class="login-btn">
+      Log in
+    </button>
+    <p class="register-link">
+      Don't have an account?
+      <a [routerLink]="['/register']" routerLinkActive="router-link-active">
+        Register here
+      </a>
+    </p>
+  </form>
+</div>

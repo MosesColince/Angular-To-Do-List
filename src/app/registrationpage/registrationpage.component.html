@@ -1,0 +1,74 @@
+<div class="Header">
+  <h1>Register Your Profile</h1>
+</div>
+<div class="register-container">
+  <form [formGroup]="registrationForm" (ngSubmit)="OnSubmit()">
+    <h2>Register</h2>
+    <div class="login-input">
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" placeholder="Name" type="text" />
+
+      <label for="email">Email Address</label>
+      <input
+        id="email"
+        formControlName="email"
+        placeholder="Email Address"
+        type="email"
+      />
+      <div
+        *ngIf="
+          registrationForm.get('email')?.invalid &&
+          registrationForm.get('email')?.touched
+        "
+      >
+        <small *ngIf="registrationForm.get('email')?.errors?.['required']"
+          >Email Is Required.</small
+        >
+        <small *ngIf="registrationForm.get('email')?.errors?.['email']"
+          >Please Enter Valid Email.</small
+        >
+      </div>
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+      />
+      <div
+        *ngIf="
+          registrationForm.get('password')?.invalid &&
+          registrationForm.get('password')?.touched
+        "
+      >
+        <small *ngIf="registrationForm.get('password')?.errors?.['required']"
+          >Password Is Required.</small
+        >
+        <small *ngIf="registrationForm.get('password')?.errors?.['minlength']"
+          >Password must be at least 6 characters.</small
+        >
+      </div>
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        id="confirm-password"
+        formControlName="confirmPassword"
+        placeholder="Confirm Password"
+        type="password"
+      />
+      <button
+        type="submit"
+        [disabled]="registrationForm.invalid"
+        class="register-btn"
+      >
+        Register
+      </button>
+      <p class="login-link">
+        Already have an account?
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active">
+          Login Here
+        </a>
+      </p>
+    </div>
+  </form>
+</div>
