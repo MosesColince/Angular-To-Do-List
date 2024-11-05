@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject,PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-registrationpage',
@@ -13,7 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 export class RegistrationpageComponent {
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
     this.registrationForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +37,7 @@ export class RegistrationpageComponent {
   }
 
   OnSubmit() {
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.valid && isPlatformBrowser(this.platformId)) {
       const { name, email, password } = this.registrationForm.value;
       const users = JSON.parse(localStorage.getItem('users') || '[]');
 

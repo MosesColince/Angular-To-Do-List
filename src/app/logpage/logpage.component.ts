@@ -1,6 +1,6 @@
 
-import { CommonModule } from '@angular/common';
-import { Component,} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component,Inject, PLATFORM_ID} from '@angular/core';
 import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterLink, RouterOutlet } from '@angular/router';
 
@@ -16,7 +16,10 @@ import {Router, RouterLink, RouterOutlet } from '@angular/router';
 export class LogpageComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+     private router: Router,
+      @Inject(PLATFORM_ID) private platformId: Object) {
     // Initialize the form group
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -26,7 +29,7 @@ export class LogpageComponent {
 
   // OnSubmit method
   onSubmit() {
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid && isPlatformBrowser(this.platformId)) {
       const {email, password} = this.loginForm.value;
       const storedUsers = JSON.parse ( localStorage.getItem('users')|| '[]');
       const user = storedUsers.find((u: any ) => u.email === email && u.password === password);

@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Inject,PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
  //Initialise an array of required infromation
 interface Task {
@@ -26,7 +25,7 @@ export class TodolistComponent implements OnInit {
   tasks: Task[] = [];
   editingTaskId: number | null = null;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {  // Initialize the form group
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,  @Inject(PLATFORM_ID) private platformId: Object) {  // Initialize the form group
     this.tasksForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -36,10 +35,11 @@ export class TodolistComponent implements OnInit {
   }
     // Load tasks from local storage when the component initializes
     ngOnInit(): void {
+    if(isPlatformBrowser(this.platformId)){
     const storedTasks =  localStorage.getItem('tasks');
     this.tasks = storedTasks ? JSON.parse(storedTasks) :[];
     console.log('Loaded Tasks', this.tasks);
-  }
+  }}
 
   // Method to handle adding tasks
   addTask() {
