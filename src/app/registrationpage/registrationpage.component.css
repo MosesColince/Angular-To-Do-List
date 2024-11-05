@@ -1,7 +1,7 @@
 
 .register-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 50px auto;
     padding: 20px;
     border-radius: 10px;
@@ -67,4 +67,7 @@
     color: #3700b3;
     text-decoration: underline;
   }
-  
+  .Header h1 {
+    text-align: center;
+    color :#007bff
+  }
