@@ -1,28 +1,77 @@
 # TodoListWeb
+# Angular To-Do List App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+This is simple and intuitive to-do list application built with Angular. This project allows users to add, edit, delete, and prioritize tasks, helping them stay organized and on top of their tasks.
 
-## Development server
+## Table of Contents
+- [Features](#features)
+- [Demo](#demo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Built With](#built-with)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- Add, edit, and delete tasks
+- Set task priorities (Low, Medium, High)
+- Mark tasks as completed
+- View due dates and identify overdue tasks
+- Responsive design for mobile and desktop
 
-## Code scaffolding
+## Demo
+You can check out the live application [here](https://mosescolince.github.io/Angular-To-Do-List/).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mosescolince/Angular-To-Do-List.git
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
+- **Add a Task**: Enter a title, description, priority, and due date, then click "Add Task".
+- **Edit a Task**: Click the "Edit" button next to the task you want to modify.
+- **Mark as Completed**: Use the checkbox to mark a task as complete.
+- **Delete a Task**: Click the "Delete" button to remove a task from the list.
 
-## Running end-to-end tests
+## Built With
+- [Angular](https://angular.io/) - Web framework
+- [TypeScript](https://www.typescriptlang.org/) - Programming language
+- [Bootstrap](https://getbootstrap.com/) - CSS framework (optional)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Deployment
 
-## Further help
+This app is hosted on GitHub Pages. To deploy, follow these steps:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-"# Angular-To-Do-List" 
+1. **Build the project**:
+   ```bash
+   ng build --output-path docs --base-href /Angular-To-Do-List/
+
+
+---
+
+## 9. **Contributing**
+   - Include a section encouraging contributions and explain how to contribute.
+
+```markdown
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please fork the repository and make a pull request.
+
+1. **Fork the Project**
+2. **Create your Feature Branch** (`git checkout -b feature/YourFeature`)
+3. **Commit your Changes** (`git commit -m 'Add your message'`)
+4. **Push to the Branch** (`git push origin feature/YourFeature`)
+5. **Open a Pull Request**
+
+
+## Contact
+
+Sithomola Mushe - [mosescolince161com](mailto:mosescolince161.com)
+
+Project Link: [https://github.com/mosescolince/Angular-o-Do-List](https://github.com/mosescolince/Angular-To-Do-List)
