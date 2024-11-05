@@ -10,10 +10,10 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
+        "build": { 
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/todo_list_web",
+            "outputPath": "docs",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -31,6 +31,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
+            "baseHref": "/Angular-To-Do-List/",
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
