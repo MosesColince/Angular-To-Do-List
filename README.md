@@ -22,7 +22,7 @@ This is simple and intuitive to-do list application built with Angular. This pro
 - Responsive design for mobile and desktop
 
 ## Demo
-You can check out the live application [here](https://mosescolince.github.io/Angular-To-Do-List/).
+You can check out the live application [here](https://voluble-cendol-a51c7e.netlify.app/).
 
 ## Installation
 
@@ -74,4 +74,4 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 
 Sithomola Mushe - [mosescolince161com](mailto:mosescolince161.com)
 
-Project Link: [https://github.com/mosescolince/Angular-o-Do-List](https://github.com/mosescolince/Angular-To-Do-List)
+Project Link: [(https://voluble-cendol-a51c7e.netlify.app/)](https://voluble-cendol-a51c7e.netlify.app/)
