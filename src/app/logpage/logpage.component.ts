@@ -27,16 +27,17 @@ export class LogpageComponent {
   // OnSubmit method
   onSubmit() {
     if (this.loginForm.valid) {
-
       const {email, password} = this.loginForm.value;
-      if( email === 'user1@gmail.com' && password === 'password123'){
+      const storedUsers = JSON.parse ( localStorage.getItem('users')|| '[]');
+      const user = storedUsers.find((u: any ) => u.email === email && u.password === password);
+
+      if(user){
         localStorage.setItem('isLoggedIn', 'true');
         this.router.navigate(['/todo'])
       }
      else {
-  
       alert('Invalid Login Info');
           }
-   }
+   } else { alert('Please fill in all required fields correctly')}
 }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -17,15 +17,16 @@ interface Task {
 @Component({
   selector: 'app-todolist',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule,ReactiveFormsModule, FormsModule],
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.css']
 })
 export class TodolistComponent implements OnInit {
   tasksForm: FormGroup;
   tasks: Task[] = [];
+  editingTaskId: number | null = null;
 
-  constructor(private fb: FormBuilder) {  // Initialize the form group
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {  // Initialize the form group
     this.tasksForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -57,8 +58,9 @@ export class TodolistComponent implements OnInit {
       
       // Push new task to the tasks array
       this.tasks.push(newTask);
-      this.saveTasks();  // Save updated tasks to local storage
-      //this.tasksForm.reset( {priority: 'Medium'});  // Reset the form after adding
+      this.saveTasks();  
+      this.tasksForm.reset({priority:'Medium'});
+// Reset the form after adding
       console.log("Task added: ", newTask);
     } else {
       console.log("Form is invalid: ", this.tasksForm.errors);
@@ -67,6 +69,7 @@ export class TodolistComponent implements OnInit {
 toggleTaskCompletion(task: Task ) {
   task.isCompleted = !task.isCompleted;
   this.saveTasks();
+  this.cdr.detectChanges();
 }
   // Save tasks to local storage method
  private saveTasks() {
@@ -88,10 +91,28 @@ toggleTaskCompletion(task: Task ) {
     }
   }
 
-  // Edit task (stub)
-  editTask(task: any) {
-    // Implement task editing logic here
+  // Edit task 
+  editTask(task: Task) {
+      this.tasksForm.setValue({
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+      dueDate: task.dueDate
+    });
+    this.editingTaskId = task.id;
   }
+
+  updateTask(taskId: number, updatedValues: any) {
+    const taskIndex = this.tasks.findIndex(task => task.id === taskId);
+    if (taskIndex !== -1) {
+      this.tasks[taskIndex] = { ...this.tasks[taskIndex], ...updatedValues };
+      this.saveTasks();
+      console.log("Task updated:", this.tasks[taskIndex]);
+      this.editingTaskId = null; // Reset editing mode
+      this.tasksForm.reset({ priority: 'Medium' });
+    }
+  }
+
  //Overdue method
  isOverdue(dueDate:string): boolean {
   const today = new Date();
@@ -103,6 +124,7 @@ toggleTaskCompletion(task: Task ) {
   deleteTask(taskid: number) {
     this.tasks = this.tasks.filter(task => task.id !== taskid);
     this.saveTasks(); 
+    this.cdr.detectChanges();
     console.log("Task deleted, current tasks:", this.tasks);
   }
 }
