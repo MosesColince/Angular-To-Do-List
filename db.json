@@ -1,4 +1,35 @@
 {
-    "users": [],
-    "tasks": []
-}
+    "users": [
+      {
+        "id": 1,
+        "name": "Mushe Colince",
+        "email": "mushe.colince@example.com",
+        "password": "password123"
+      },
+      {
+        "id": 2,
+        "name": "Moss Moses",
+        "email": "Moss.moses@example.com",
+        "password": "password456"
+      }
+    ],
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Task 1",
+        "description": "Description for Task 1",
+        "priority": "High",
+        "dueDate": "2024-11-15",
+        "isCompleted": false
+      },
+      {
+        "id": 2,
+        "title": "Task 2",
+        "description": "Description for Task 2",
+        "priority": "Medium",
+        "dueDate": "2024-11-20",
+        "isCompleted": false
+      }
+    ]
+  }
+  

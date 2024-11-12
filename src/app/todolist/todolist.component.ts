@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterLink } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TaskService } from '../task.service';
-import { error } from 'console';
 
  //Initialise an array of required infromation
 interface Task {
@@ -66,15 +65,14 @@ export class TodolistComponent implements OnInit {
       console.log('New task:',newTask);
       
       // Push new task to the tasks array
-      this.taskService.addTask(newTask).subscribe(
-        (task) => {
+      this.taskService.addTask(newTask).subscribe({
+        next: (task) => {
           this.tasks.push(task);
           this.saveTasks();  
           this.tasksForm.reset({priority:'Medium'});
           console.log("Task added: ", task);
-        }, (error)=> console.error('error adding task ', error)
-      );
-      
+        }, error: (error)=> console.error('error adding task ', error)
+    }); 
     } else {
       console.log("Form is invalid: ", this.tasksForm.errors);
     }
