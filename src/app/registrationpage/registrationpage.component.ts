@@ -3,6 +3,7 @@ import { Component, Inject,PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-registrationpage',
@@ -14,7 +15,10 @@ import { isPlatformBrowser } from '@angular/common';
 export class RegistrationpageComponent {
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private fb: FormBuilder,
+     private router: Router,
+     private userService: UserService ,
+    @Inject(PLATFORM_ID) private platformId: Object) {
     this.registrationForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -39,20 +43,20 @@ export class RegistrationpageComponent {
   OnSubmit() {
     if (this.registrationForm.valid && isPlatformBrowser(this.platformId)) {
       const { name, email, password } = this.registrationForm.value;
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-
       // Check if email is already registered
-      const registeredUser = users.find((user: any) => user.email === email);
-      if (registeredUser) {
-        alert('Email is already registered. Please log in');
-        return;
+      this.userService.isEmailRegistered(email).subscribe(isRegistered => {
+        if (isRegistered) {
+          alert('Email is already registered. Please log in');
+          return;
+      } else {
+         // Register new user
+         this.userService.registerUser({ name, email, password }).subscribe(() => {
+          alert('Registration successful! Please log in.');
+          this.router.navigate(['/login']);
+      });
       }
+      });
 
-      // Register new user
-      users.push({ name, email, password });
-      localStorage.setItem('users', JSON.stringify(users));
-      alert('Registration successful! Please log in.');
-      this.router.navigate(['/login']);
     }
   }
 }

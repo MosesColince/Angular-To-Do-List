@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, Inject,PLATFORM_ID } from '@angul
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { TaskService } from '../task.service';
+import { error } from 'console';
 
  //Initialise an array of required infromation
 interface Task {
@@ -25,7 +27,10 @@ export class TodolistComponent implements OnInit {
   tasks: Task[] = [];
   editingTaskId: number | null = null;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,  @Inject(PLATFORM_ID) private platformId: Object) {  // Initialize the form group
+  constructor(private fb: FormBuilder, 
+    private cdr: ChangeDetectorRef,
+    private taskService: TaskService,  
+    @Inject(PLATFORM_ID) private platformId: Object) {  // Initialize the form group
     this.tasksForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -36,16 +41,20 @@ export class TodolistComponent implements OnInit {
     // Load tasks from local storage when the component initializes
     ngOnInit(): void {
     if(isPlatformBrowser(this.platformId)){
-    const storedTasks =  localStorage.getItem('tasks');
-    this.tasks = storedTasks ? JSON.parse(storedTasks) :[];
-    console.log('Loaded Tasks', this.tasks);
+    this.taskService.getTasks().subscribe(
+      (tasks) => {
+        this.tasks = tasks;
+        console.log('Loaded Tasks', this.tasks);
+      },
+      (error) => console.error('Error loading tasks',error)
+    );
+  
   }}
 
   // Method to handle adding tasks
   addTask() {
     if (this.tasksForm.valid) {
       const formValues = this.tasksForm.value;
-
       const newTask: Task = { 
       id: Date.now(),
       title: formValues.title,
@@ -57,15 +66,20 @@ export class TodolistComponent implements OnInit {
       console.log('New task:',newTask);
       
       // Push new task to the tasks array
-      this.tasks.push(newTask);
-      this.saveTasks();  
-      this.tasksForm.reset({priority:'Medium'});
-// Reset the form after adding
-      console.log("Task added: ", newTask);
+      this.taskService.addTask(newTask).subscribe(
+        (task) => {
+          this.tasks.push(task);
+          this.saveTasks();  
+          this.tasksForm.reset({priority:'Medium'});
+          console.log("Task added: ", task);
+        }, (error)=> console.error('error adding task ', error)
+      );
+      
     } else {
       console.log("Form is invalid: ", this.tasksForm.errors);
     }
   }
+
 toggleTaskCompletion(task: Task ) {
   task.isCompleted = !task.isCompleted;
   this.saveTasks();
@@ -103,15 +117,20 @@ toggleTaskCompletion(task: Task ) {
   }
 
   updateTask(taskId: number, updatedValues: any) {
-    const taskIndex = this.tasks.findIndex(task => task.id === taskId);
-    if (taskIndex !== -1) {
-      this.tasks[taskIndex] = { ...this.tasks[taskIndex], ...updatedValues };
-      this.saveTasks();
-      console.log("Task updated:", this.tasks[taskIndex]);
-      this.editingTaskId = null; // Reset editing mode
-      this.tasksForm.reset({ priority: 'Medium' });
-    }
+    const updatedTask = {...this.tasks.find(t => t.id === taskId), ...updatedValues};
+   this.taskService.updateTask(updatedTask).subscribe(
+    (task) => {
+      const taskIndex = this.tasks.findIndex(t => t.id === taskId);
+      if (taskIndex !== -1)
+        this.tasks[taskIndex] = task;
+        this.saveTasks();
+        this.editingTaskId = null; // Reset editing mode
+        this.tasksForm.reset({ priority: 'Medium' });
+        console.log("Task updated:", task);
+    }, (error)=> console.error('Error updating task', error)
+   );
   }
+  
 
  //Overdue method
  isOverdue(dueDate:string): boolean {
@@ -121,11 +140,15 @@ toggleTaskCompletion(task: Task ) {
  }
 
   // Delete  task method
-  deleteTask(taskid: number) {
-    this.tasks = this.tasks.filter(task => task.id !== taskid);
-    this.saveTasks(); 
-    this.cdr.detectChanges();
-    console.log("Task deleted, current tasks:", this.tasks);
-  }
+  deleteTask(taskId: number) {
+    this.taskService.deleteTask(taskId).subscribe (
+      () => {
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+        this.saveTasks(); 
+        this.cdr.detectChanges();
+        console.log("Task deleted, current tasks:", this.tasks);
+      }, (error) => console.error('Error deleting task', error)
+  );
 }
 
+}
