@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterLink } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TaskService } from '../task.service';
+import { error } from 'console';
 
  //Initialise an array of required infromation
 interface Task {
@@ -37,16 +38,15 @@ export class TodolistComponent implements OnInit {
       dueDate: ['', Validators.required]
     });
   }
-    // Load tasks from local storage when the component initializes
     ngOnInit(): void {
     if(isPlatformBrowser(this.platformId)){
-    this.taskService.getTasks().subscribe(
-      (tasks) => {
+    this.taskService.getTasks().subscribe( {
+     next: (tasks) => {
         this.tasks = tasks;
         console.log('Loaded Tasks', this.tasks);
       },
-      (error) => console.error('Error loading tasks',error)
-    );
+      error: (error) => console.error('Error loading tasks',error)
+     } );
   
   }}
 
@@ -68,7 +68,6 @@ export class TodolistComponent implements OnInit {
       this.taskService.addTask(newTask).subscribe({
         next: (task) => {
           this.tasks.push(task);
-          this.saveTasks();  
           this.tasksForm.reset({priority:'Medium'});
           console.log("Task added: ", task);
         }, error: (error)=> console.error('error adding task ', error)
@@ -80,14 +79,13 @@ export class TodolistComponent implements OnInit {
 
 toggleTaskCompletion(task: Task ) {
   task.isCompleted = !task.isCompleted;
-  this.saveTasks();
-  this.cdr.detectChanges();
+  this.taskService.updateTask(task).subscribe({
+    next:()=> {
+      console.log("Task completion toggled:",task)
+      this.cdr.detectChanges();
+    }, error: (error) => console.error('error updating task',error),
+  }); 
 }
-  // Save tasks to local storage method
- private saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-    console.log("Tasks saved:", this.tasks);
-  }
 
   // Method to return color based on priority
   getPriorityColor(priority: string) {
@@ -116,17 +114,17 @@ toggleTaskCompletion(task: Task ) {
 
   updateTask(taskId: number, updatedValues: any) {
     const updatedTask = {...this.tasks.find(t => t.id === taskId), ...updatedValues};
-   this.taskService.updateTask(updatedTask).subscribe(
-    (task) => {
+   this.taskService.updateTask(updatedTask).subscribe( {
+   next: (task) => {
       const taskIndex = this.tasks.findIndex(t => t.id === taskId);
-      if (taskIndex !== -1)
+      if (taskIndex !== -1){
         this.tasks[taskIndex] = task;
-        this.saveTasks();
+      }
         this.editingTaskId = null; // Reset editing mode
         this.tasksForm.reset({ priority: 'Medium' });
         console.log("Task updated:", task);
-    }, (error)=> console.error('Error updating task', error)
-   );
+    },error: (error)=> console.error('Error updating task', error)
+  });
   }
   
 
@@ -139,14 +137,15 @@ toggleTaskCompletion(task: Task ) {
 
   // Delete  task method
   deleteTask(taskId: number) {
-    this.taskService.deleteTask(taskId).subscribe (
-      () => {
+    console.log("Attempting to delete task with ID:", taskId);
+    this.taskService.deleteTask(taskId).subscribe({
+      next: () => {
+        console.log("Task successfully deleted on the server.");
         this.tasks = this.tasks.filter(task => task.id !== taskId);
-        this.saveTasks(); 
         this.cdr.detectChanges();
         console.log("Task deleted, current tasks:", this.tasks);
-      }, (error) => console.error('Error deleting task', error)
-  );
+      }, error: (error) => console.error('Error deleting task', error)
+  });
 }
 
 }
