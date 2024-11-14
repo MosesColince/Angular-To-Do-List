@@ -48,11 +48,11 @@ I Struggled to deploy the website, please use these steps to clone to your local
 
 1. **Cloning the Repo**:
    ```bash
-   git clone <mosesclince
+   git clone https://github.com/mosescolince/Angular-To-Do-List.git
       
 2. **Install Dependencies**:
    ```bash
-   cd <project-directory>
+   cd https://github.com/mosescolince/Angular-To-Do-List.git
    npm install
 3. **Set Up JSON Server**:
    ```bash
