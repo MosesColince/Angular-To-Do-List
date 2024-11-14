@@ -44,18 +44,30 @@ You can check out the live application [here](https://voluble-cendol-a51c7e.netl
 
 ## Deployment
 
-This app is hosted on GitHub Pages. To deploy, follow these steps:
+I Struggled to deploy the website, please use these steps to clone to your local machine:
 
-1. **Build the project**:
+1. **Cloning the Repo**:
    ```bash
-   ng build --output-path docs --base-href /Angular-To-Do-List/
-   
-2. ## Running the website
-**ng serve --ssl true --ssl-key "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/key.pem" --ssl-cert "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/cert.pem"**
+   git clone <mosesclince
+      
+2. **Install Dependencies**:
+   ```bash
+   cd <project-directory>
+   npm install
+3. **Set Up JSON Server**:
+   ```bash
+      Run: npm install -g json-server
+      And then : json-server --watch db.json --port 3000
+
+4. **Run the application Locally**
+  ##This is an example of where my application is locally please use your own path
+   ```bash
+    ng serve --ssl true --ssl-key 
+   "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/key.pem" --ssl-cert 
+     "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/cert.pem"
 
 
 ## 9. **Contributing**
-   - Include a section encouraging contributions and explain how to contribute.
 
 ```markdown
 ## Contributing
@@ -73,4 +85,4 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 
 Sithomola Mushe - [mosescolince161com](mailto:mosescolince161.com)
 
-Project Link: [(https://voluble-cendol-a51c7e.netlify.app/)](https://voluble-cendol-a51c7e.netlify.app/)
+Project Link: [()]()
