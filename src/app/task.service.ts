@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 interface Task {
   id: number;
@@ -15,7 +16,7 @@ interface Task {
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'https://sithomola-mushe-todo-list.netlify.app/';
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
