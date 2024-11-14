@@ -1,6 +1,6 @@
 
 export const environment = {
     production: true, 
-    apiUrl: 'https://hosted-URL/tasks'
+    apiUrl: 'https://sithomola-mushe-todo-list.netlify.app/'
   };
   
