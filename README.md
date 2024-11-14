@@ -31,8 +31,6 @@ You can check out the live application [here](https://voluble-cendol-a51c7e.netl
    git clone https://github.com/mosescolince/Angular-To-Do-List.git
 
 
----
-
 ## Usage
 - **Add a Task**: Enter a title, description, priority, and due date, then click "Add Task".
 - **Edit a Task**: Click the "Edit" button next to the task you want to modify.
@@ -51,9 +49,10 @@ This app is hosted on GitHub Pages. To deploy, follow these steps:
 1. **Build the project**:
    ```bash
    ng build --output-path docs --base-href /Angular-To-Do-List/
+   
+2. ## Running the website
+**ng serve --ssl true --ssl-key "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/key.pem" --ssl-cert "C:/Users/MC/OneDrive/Desktop/Project_2_CodeTribe/todo_list_web/ssl/cert.pem"**
 
-
----
 
 ## 9. **Contributing**
    - Include a section encouraging contributions and explain how to contribute.
