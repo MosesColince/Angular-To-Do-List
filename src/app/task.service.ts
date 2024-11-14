@@ -15,7 +15,7 @@ interface Task {
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:3000/tasks';
+  private apiUrl = 'https://sithomola-mushe-todo-list.netlify.app/';
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
